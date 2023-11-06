@@ -27,10 +27,13 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
-  "author": "",
+  "author": "Andrew Olson",
   "homepage": "",
   "license": "MIT",
-  "repository": "",
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/warelab/gramene-efp-browser.git"
+  },
   "keywords": [
     "react-component"
   ],
