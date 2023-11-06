@@ -1,5 +1,5 @@
 import React, {Component, useState, useEffect} from 'react'
-
+import './styles.css';
 const urls = {
   image: (genome, study, gene) => `https://bar.utoronto.ca/api/efp_image/efp_${genome}/${study}/Absolute/${gene}`,
   app: (genome, study, gene) => `https://bar.utoronto.ca/efp_${genome}/cgi-bin/efpWeb.cgi?dataSource=${study}&mode=Absolute&primaryGene=${gene}`,
@@ -89,14 +89,15 @@ export default class BAR extends Component {
     if (!study) {
       study = this.state.studies[0].value;
     }
-    return <div>
-      <label>Select a study:</label>
+    return <div style={{paddingTop:10}}>
+      <label style={{paddingLeft:20,paddingRight:10}}>Select a study:</label>
       <select value={study} onChange={(e) => this.setState({currentStudy: e.target.value})}>
         {this.state.studies.map((s,idx) => <option key={idx} value={s.value}>{s.label}</option>)}
-      </select><br/>
+      </select>
+      <br/>
       <ImageLoader url={urls.image(browser.genome,study,efp_gene)}/>
-      <a href={urls.app(browser.genome,study,efp_gene)}>
-        Powered by <img src={urls.logo}/> BAR Webservices
+      <a style={{paddingLeft:100}} href={urls.app(browser.genome,study,efp_gene)}>
+        Powered by <img src={urls.logo} style={{maxWidth:40}}/> Webservices
       </a>
     </div>
   }
