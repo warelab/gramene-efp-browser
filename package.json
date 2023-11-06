@@ -1,6 +1,6 @@
 {
   "name": "gramene-efp-browser",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "gramene-efp-browser React component",
   "main": "lib/index.js",
   "module": "es/index.js",
