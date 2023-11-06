@@ -1,5 +1,5 @@
 import React, {Component, useState, useEffect} from 'react'
-import './styles.css';
+
 const urls = {
   image: (genome, study, gene) => `https://bar.utoronto.ca/api/efp_image/efp_${genome}/${study}/Absolute/${gene}`,
   app: (genome, study, gene) => `https://bar.utoronto.ca/efp_${genome}/cgi-bin/efpWeb.cgi?dataSource=${study}&mode=Absolute&primaryGene=${gene}`,
@@ -46,7 +46,7 @@ const ImageLoader = props => {
   }, [props.url]);
 
   return (
-    <div className="BAR-container">
+    <div style={{padding:20}}>
       {loading && <img src={urls.spinner} alt="Loading..." />}
       {!loading && !error && <img style={{'max-width':'100%'}} src={props.url} />}
       {error && <p>Error: Failed to load image</p>}
