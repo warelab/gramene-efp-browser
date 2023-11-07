@@ -14,15 +14,31 @@ const browsers = {
   },
   arabidopsis_thaliana: {
     formatGene: gene => gene._id,
+    fixStudies: studies => {
+      studies = studies.filter(s => s.value !== 'Klepikova_Atlas');
+      studies.unshift({value:'Klepikova_Atlas',label:'Klepikova Atlas'})
+      return studies;
+    },
     genome: 'arabidopsis'
   },
   zea_mays: {
     formatGene: gene => gene.synonyms[0],
+    fixStudies: studies => {
+      studies = studies.filter(s => s.value !== 'Hoopes_et_al_Atlas' && s.value !== 'Hoopes_et_al_Stress');
+      studies.unshift({value:'Hoopes_et_al_Stress',label:'Hoopes et. al., Stress'})
+      studies.unshift({value:'Hoopes_et_al_Atlas',label:'Hoopes et. al., Atlas'})
+      return studies;
+    },
     genome: 'maize'
   },
   glycine_max: {
     formatGene: gene => gene._id.replace('GLYMA_','Glyma.'),
+    fixStudies: studies => studies.filter(s => s.value !== 'soybean_senescence'),
     genome: 'soybean'
+  },
+  vitis_vinifera: {
+    formatGene: gene => gene._id,
+    genome: 'grape'
   }
 }
 
@@ -61,14 +77,18 @@ export default class BAR extends Component {
       currentStudy: null
     }
   }
-  getStudies(genome) {
+  getStudies(browser) {
+    const genome = browser.genome;
     fetch(urls.studies(genome))
       .then(response => response.json())
       .then(res => {
         if (res.wasSuccessful) {
-          const studies = res.data.sort().map(v => {
+          let studies = res.data.sort().map(v => {
             return {value: v, label: v.replace(/_/g,' ')}
           });
+          if (browser.hasOwnProperty('fixStudies')) {
+            studies = browser.fixStudies(studies);
+          }
           this.setState({studies});
         }
       })
@@ -82,7 +102,7 @@ export default class BAR extends Component {
       return <div><h2>Can't find eFP browser for {gene.system_name}</h2></div>
     }
     if (!this.state.studies) {
-      this.getStudies(browser.genome);
+      this.getStudies(browser);
       return <img src={urls.spinner} alt="Loading..." />
     }
     const efp_gene = browser.formatGene(gene);
