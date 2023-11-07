@@ -35,10 +35,6 @@ const browsers = {
     formatGene: gene => gene._id.replace('GLYMA_','Glyma.'),
     fixStudies: studies => studies.filter(s => s.value !== 'soybean_senescence'),
     genome: 'soybean'
-  },
-  vitis_vinifera: {
-    formatGene: gene => gene._id,
-    genome: 'grape'
   }
 }
 
