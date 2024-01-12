@@ -7,7 +7,7 @@ const urls = {
   logo: 'https://bar.utoronto.ca/bbc_logo_small.gif',
   spinner: 'https://www.sorghumbase.org/static/images/dna_spinner.svg'
 }
-const browsers = {
+let browsers = {
   sorghum_bicolor: {
     formatGene: gene => gene._id.replace('SORBI_3','Sobic.'),
     genome: 'sorghum'
@@ -36,7 +36,9 @@ const browsers = {
     fixStudies: studies => studies.filter(s => s.value !== 'soybean_senescence'),
     genome: 'soybean'
   }
-}
+};
+// special case for subsites that refer to maize b73 as "zea_maysb73"
+browsers.zea_maysb73 = browsers.zea_mays;
 
 const ImageLoader = props => {
   const [loading, setLoading] = useState(true);
