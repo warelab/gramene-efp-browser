@@ -35,6 +35,16 @@ let browsers = {
     formatGene: gene => gene._id.replace('GLYMA_','Glyma.'),
     fixStudies: studies => studies.filter(s => s.value !== 'soybean_senescence'),
     genome: 'soybean'
+  },
+  oryza_sativa: {
+    genome: 'rice',
+    formatGene: gene => `LOC_${gene._id}`,
+    fixStudies: studies => {
+      studies = studies.filter(s => s.value !== 'rice_rma' && s.value !== 'rice_mas');
+      studies.unshift({value:'rice_rma',label:'rice rma'});
+      studies.unshift({value:'rice_mas',label:'rice mas'});
+      return studies;
+    }
   }
 };
 // special case for subsites that refer to maize b73 as "zea_maysb73"

@@ -22,6 +22,10 @@ const g4 = {
   _id: 'GLYMA_06G047400',
   system_name: 'glycine_max'
 };
+const g5 = {
+  _id: 'Os01g01080',
+  system_name: 'oryza_sativa'
+};
 export default class Demo extends Component {
   render() {
     return <div>
@@ -31,6 +35,7 @@ export default class Demo extends Component {
         <Tab eventKey='arabidopsis' title='arabidopsis'>{haveBAR(g2) && <BAR gene={g2}/>}</Tab>
         <Tab eventKey='maize' title='maize'>{haveBAR(g3) && <BAR gene={g3}/>}</Tab>
         <Tab eventKey='soybean' title='soybean'>{haveBAR(g4) && <BAR gene={g4}/>}</Tab>
+        <Tab eventKey='rice' title='rice'>{haveBAR(g5) && <BAR gene={g5}/>}</Tab>
       </Tabs>
     </div>
   }
