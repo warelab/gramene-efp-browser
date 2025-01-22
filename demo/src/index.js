@@ -23,7 +23,8 @@ const g4 = {
   system_name: 'glycine_max'
 };
 const g5 = {
-  _id: 'Os01g01080',
+  _id: 'Os01g0100900',
+  MSU_id: 'LOC_Os01g01080',
   system_name: 'oryza_sativa'
 };
 export default class Demo extends Component {

@@ -38,7 +38,7 @@ let browsers = {
   },
   oryza_sativa: {
     genome: 'rice',
-    formatGene: gene => `LOC_${gene._id}`,
+    formatGene: gene => gene.MSU_id, // <<-- need lookup table from IRGSP ids to LOC_d
     fixStudies: studies => {
       studies = studies.filter(s => s.value !== 'rice_rma' && s.value !== 'rice_mas');
       studies.unshift({value:'rice_rma',label:'rice rma'});
