@@ -29,10 +29,13 @@ let browsers = {
   zea_mays: {
     formatGene: gene => {
       let id = gene._id;
-      gene.synonyms.forEach(syn => {
-        if (zmv4_re.test(syn)) { id = syn }
-      });
-      return id},
+      if (gene.synonyms) {
+        gene.synonyms.forEach(syn => {
+          if (zmv4_re.test(syn)) { id = syn }
+        });
+      }
+      return id
+    },
     fixStudies: studies => {
       studies = studies.filter(s => s.value !== 'Hoopes_et_al_Atlas' && s.value !== 'Hoopes_et_al_Stress');
       studies.unshift({value:'Hoopes_et_al_Stress',label:'Hoopes et. al., Stress'})
