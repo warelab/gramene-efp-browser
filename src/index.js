@@ -6,11 +6,16 @@ const urls = {
   studies: genome => `https://bar.utoronto.ca/api/efp_image/get_efp_data_source/${genome}`,
   logo: 'https://bar.utoronto.ca/bbc_logo_small.gif',
   spinner: 'https://www.sorghumbase.org/static/images/dna_spinner.svg'
-}
+};
+let zmv4_re = /Zm00001d/;
 let browsers = {
   sorghum_bicolor: {
     formatGene: gene => gene._id.replace('SORBI_3','Sobic.'),
     genome: 'sorghum'
+  },
+  vitis_vinifera: {
+    formatGene: gene => gene._id,
+    genome: 'grape'
   },
   arabidopsis_thaliana: {
     formatGene: gene => gene._id,
@@ -22,7 +27,12 @@ let browsers = {
     genome: 'arabidopsis'
   },
   zea_mays: {
-    formatGene: gene => gene.synonyms[0],
+    formatGene: gene => {
+      let id = gene._id;
+      gene.synonyms.forEach(syn => {
+        if (zmv4_re.test(syn)) { id = syn }
+      });
+      return id},
     fixStudies: studies => {
       studies = studies.filter(s => s.value !== 'Hoopes_et_al_Atlas' && s.value !== 'Hoopes_et_al_Stress');
       studies.unshift({value:'Hoopes_et_al_Stress',label:'Hoopes et. al., Stress'})
